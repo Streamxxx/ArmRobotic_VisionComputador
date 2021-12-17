@@ -1,5 +1,8 @@
 import cv2
 import numpy as np
+import serial
+
+ser = serial.Serial('COM4',9600)
 
 def dibujar(mask, color):
     contornos, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) 
@@ -46,8 +49,11 @@ while True:
         dibujar(maskAzul,(255,0,0))
         dibujar(maskGreen,(0,143,57))
         dibujar(maskRed,(0,0,255))
+        
+        ser.write(str('a').encode())
+        ser.write(str('b').encode())
+        ser.write(str('c').encode())
         cv2.imshow('frame',frame)
-        cv2.imshow('frame', frame)
         if cv2.waitKey(1) & 0xFF == ord('s'):
             break
 cap.release()
